@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './App.css';
 import { Nav, Container, Navbar } from 'react-bootstrap';
 import data from './data.js';
+import { Routes, Route, Link } from 'react-router-dom'
 
 function App() {
 
@@ -9,6 +10,12 @@ function App() {
 
   return (
     <div className="App">
+
+      <Routes>
+        <Route path='/detail' element={<div>상세페이지</div>}/>
+        <Route path='/about' element={<div>어바웃페이지</div>}/>
+      </Routes>
+
        <Navbar bg="light" variant="light">
         <Container>
           <Navbar.Brand href="#home">SHOESHOP</Navbar.Brand>
@@ -45,7 +52,6 @@ function Card(props){
     </div>
   )
 }
-
 
 
 export default App;
