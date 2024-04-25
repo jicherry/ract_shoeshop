@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Nav } from 'react-bootstrap';
+import { useDispatch } from "react-redux";
+import { addItem } from "../store";
+
 
 function Detail(props) {
 
     let {id} = useParams();
     let [탭, 탭변경] = useState(0);
+    let dispatch = useDispatch()
  
 
     // useEffect -> 어려운 연산, 서버에서 데이터가져오는 작업, 타이머 등에 사용됨  
@@ -22,7 +26,9 @@ function Detail(props) {
                 <h4 className="pt-5">{props.shoes[id].title}</h4>
                 <p>{props.shoes[id].content}</p>
                 <p>{props.shoes[id].price}</p>
-                <button className="btn btn-danger">주문하기</button> 
+                <button className="btn btn-danger" onClick={()=> {
+                    dispatch(addItem(  {id : 1 , name : 'Red kint' , count : 1} ))
+                }}>주문하기</button> 
             </div>
         </div>
 
@@ -55,14 +61,24 @@ function Detail(props) {
 //if 문은 밖에서 사용 가능
 
 function Tab(props){ 
+
+    let [fade, setFade] = useState('');
+    useEffect(()=>{
+        setTimeout(()=>{
+            setFade('end') }, 100)
+        return()=>{
+            setFade('')
+        }
+    }, [props.탭])
+
     if(props.탭 == 0){
-        return <div>내용0</div>
+        return <div className={"start" + fade}>내용0</div>
     }
     if(props.탭 == 1){
-        return <div>내용1</div>
+        return <div className={"start" + fade}>내용1</div>
     }
     if(props.탭 == 2){
-        return <div>내용2</div>
+        return <div className={"start"  + fade}>내용2</div>
     }
 }
 
